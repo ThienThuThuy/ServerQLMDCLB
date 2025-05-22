@@ -1,8 +1,6 @@
-// src/models/user.model.ts
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IUser extends Document {
-  _id: mongoose.Types.ObjectId; // ✅ _id now has known type
   first_name: string;
   last_name: string;
   email: string;
@@ -11,6 +9,7 @@ export interface IUser extends Document {
   contact?: string;
   position: string;
   role: string;
+  avatar?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -28,14 +27,12 @@ const userSchema = new Schema<IUser>(
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     contact: { type: String },
-    position: { type: String, default: 'Employee', required: true },
-    role: { type: String, default: 'user', required: true },
+    position: { type: String, default: 'Student' },
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    avatar: { type: String },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 const UserModel = mongoose.model<IUser>('User', userSchema);
-
 export default UserModel;

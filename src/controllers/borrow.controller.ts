@@ -85,7 +85,7 @@ export const getBorrowRequestById = async (req: AuthRequest, res: Response) => {
         }
 
         const { id } = req.params;
-        const user = req.user;
+        const user = req.user as { _id: mongoose.Types.ObjectId | string; role: string };
 
         const request = await BorrowRequestModel.findById(id)
             .populate('user', 'first_name last_name email role')
@@ -97,7 +97,7 @@ export const getBorrowRequestById = async (req: AuthRequest, res: Response) => {
         }
 
         const isAdmin = user.role === 'admin';
-        const isOwner = request.user && request.user._id.toString() === user._id.toString();
+        const isOwner = request.user && (request.user as any)._id.toString() === user._id.toString();
 
         if (!isAdmin && !isOwner) {
             res.status(403).json({ message: 'Forbidden: Access denied' });

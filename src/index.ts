@@ -1,24 +1,19 @@
 import express, { Request, Response } from 'express';
+import path from 'path';
 import { connectDB, disconnectDB } from './config/database';
-import authRoutes from './routers/auth.routes';
 import userRoutes from './routers/user.routes';
-import equipmentRoutes from './routers/equipment.routes';
-import borrowRoutes from './routers/borrow.routes';
-import statisticsRoutes from './routers/statistics.routes';
-import alertRoutes from './routers/alert.routes';
-
-
+import adminRoutes from './routers/admin.routes'
+import Routes from './routers/index.routes';
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use('/api', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api', equipmentRoutes);
-app.use('/api', borrowRoutes);
-app.use('/api', statisticsRoutes);
-app.use('/api', alertRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api', Routes);
+app.use('uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Start server
 const startServer = async () => {
     try {
