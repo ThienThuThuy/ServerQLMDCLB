@@ -177,6 +177,3 @@ export const deleteUser = async (req: AuthRequest, res: Response) => {
     }
 };
 
-/**
- * Upload user avatar
- */

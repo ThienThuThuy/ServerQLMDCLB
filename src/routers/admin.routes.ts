@@ -2,8 +2,7 @@ import { Router } from 'express';
 import { createEquipment, updateEquipment, deleteEquipment, adjustEquipmentStock } from '../controllers/equipment.controller';
 import { getAllBorrowRequests, rejectBorrowRequest, approveBorrowRequest } from '../controllers/borrow.controller';
 import { getAllUsers, getUserById, deleteUser } from '../controllers/user.controller';
-import { authMiddleware } from '../middleware/auth';
-import { isAdmin } from '../middleware/isAdmin';
+import { authMiddleware, isAdmin } from '../middleware/auth';
 import { getOverdueAlerts, sendReminder, getMyReminders } from '../controllers/alert.controller';
 import { getTopBorrowedEquipment } from '../controllers/statistics.controller';
 
